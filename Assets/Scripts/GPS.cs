@@ -32,7 +32,7 @@ public class GPS : MonoBehaviour
                 coordenadas.text = ("Timed out");
                 yield break;
             }
-
+            yield return new WaitForSeconds(3);
             // Connection has failed
             if (Input.location.status == LocationServiceStatus.Failed)
             {
