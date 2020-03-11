@@ -13,14 +13,9 @@ public class GPS : MonoBehaviour
     }
     IEnumerator Start2()
     {
-        // First, check if user has location service enabled
-        /*if (!Input.location.isEnabledByUser)
-            yield break;*/
-
         // Start service before querying location
         while (true)
         {
-            yield return new WaitForSeconds(3);
             Input.location.Start();
 
             // Wait until service initializes
@@ -51,7 +46,7 @@ public class GPS : MonoBehaviour
             }
 
             // Stop service if there is no need to query location updates continuously
-            //Input.location.Stop();
+            Input.location.Stop();
         }
     }
 }
