@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GPS : MonoBehaviour
 {
-    public Text coordenadas;
+    public UnityEngine.UI.Text coordenadas;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +32,6 @@ public class GPS : MonoBehaviour
                 yield break;
             }
             yield return new WaitForSeconds(3);
-            // Connection has failed
             if (Input.location.status == LocationServiceStatus.Failed)
             {
                 coordenadas.text = ("Unable to determine device location");
@@ -42,7 +40,7 @@ public class GPS : MonoBehaviour
             else
             {
                 // Access granted and location value could be retrieved
-                coordenadas.text = ("Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude + " " + Input.location.lastData.altitude + " " + Input.location.lastData.horizontalAccuracy + " " + Input.location.lastData.timestamp);
+                coordenadas.text = ("Latitud: " + Input.location.lastData.latitude + "\nLongitud:" + Input.location.lastData.longitude);
             }
 
             // Stop service if there is no need to query location updates continuously
