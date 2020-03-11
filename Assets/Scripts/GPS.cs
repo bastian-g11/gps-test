@@ -16,6 +16,7 @@ public class GPS : MonoBehaviour
     void Start()
     {
         StartCoroutine(Start2());
+        currentPos = zeroPos;
     }
 
     void Update()
