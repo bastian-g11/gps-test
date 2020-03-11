@@ -5,11 +5,30 @@ using UnityEngine;
 public class GPS : MonoBehaviour
 {
     public UnityEngine.UI.Text coordenadas;
+    public Vector2 zeroPos;
+    public Vector2 currentPos;
+    public Vector2 traslation;
+    public Transform target;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Start2());
     }
+
+    void Update()
+    {
+        traslation = currentPos - zeroPos;
+        traslation = traslation * 100000;
+    }
+
+    void LateUpdate()
+    {
+        target.position = Vector3.MoveTowards(target.position, new Vector3(traslation.x, 0, traslation.y), 0.1f);
+    }
+
     IEnumerator Start2()
     {
         // Start service before querying location
@@ -41,6 +60,8 @@ public class GPS : MonoBehaviour
             {
                 // Access granted and location value could be retrieved
                 coordenadas.text = ("Latitud: " + Input.location.lastData.latitude + "\nLongitud:" + Input.location.lastData.longitude);
+                currentPos.x = Input.location.lastData.latitude;
+                currentPos.y = Input.location.lastData.longitude;
             }
 
             // Stop service if there is no need to query location updates continuously
