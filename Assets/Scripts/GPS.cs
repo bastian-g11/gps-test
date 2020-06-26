@@ -8,10 +8,14 @@ public class GPS : MonoBehaviour
     public Vector2 zeroPos;
     public Vector2 currentPos;
     public Vector2 traslation;
-    public float disFactor;
-    public UnityEngine.UI.InputField input;
+    public float disFactorX;
+    public float disFactorY;
+    public UnityEngine.UI.InputField inputX;
+    public UnityEngine.UI.InputField inputY;
 
     public PlayerController playerController;
+
+    public Vector2 destination;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +30,8 @@ public class GPS : MonoBehaviour
 
     public void ChangeFactor()
     {
-        disFactor = int.Parse(input.text);
+        disFactorX = int.Parse(inputX.text);
+        disFactorY = int.Parse(inputY.text);
     }
 
     IEnumerator Start2()
@@ -59,11 +64,13 @@ public class GPS : MonoBehaviour
             else
             {
                 // Access granted and location value could be retrieved
-                currentPos = new Vector2(Input.location.lastData.latitude, Input.location.lastData.longitude);
-                coordenadas.text = ("LATITUD: " + currentPos.x + "\nLONGITUD:" + currentPos.y);
+                currentPos = new Vector2(Input.location.lastData.longitude, Input.location.lastData.latitude);
+                coordenadas.text = ("LATITUD: " + currentPos.y + "\nLONGITUD:" + currentPos.x);
                 traslation = currentPos - zeroPos;
-                traslation = traslation * disFactor;
+                traslation.x *= disFactorX;
+                traslation.y *= disFactorY;
                 playerController.SetTargetPos(traslation.x, traslation.y);
+                Debug.Log(currentPos);
             }
 
             // Stop service if there is no need to query location updates continuously

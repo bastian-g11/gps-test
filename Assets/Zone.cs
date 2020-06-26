@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZonePosition : MonoBehaviour
+public class Zone : MonoBehaviour
 {
-    public float reachRange;
-    
+    public List<int> teamsPopulation;
+
     private void OnTriggerEnter(Collider other) 
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerController>().EnterZone(transform.position);
+            ZoneControlController.instance.SetControlBar(this);
         }
     }
 
@@ -18,8 +18,8 @@ public class ZonePosition : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerController>().ExitZone();
+            ZoneControlController.instance.currentZone = null;
+            ZoneControlController.instance.uiElement.gameObject.SetActive(false);
         }
     }
-
 }
